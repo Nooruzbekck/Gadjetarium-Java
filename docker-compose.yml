@@ -1,23 +1,21 @@
+version: "3.9"
 services:
   backend:
-    build: .
+    image: '#image'
     container_name: gadget
     restart: always
     ports:
       - "80:2024"
     environment:
       SPRING_PROFILES_ACTIVE: main
+      SERVER_PORT: 2024
+      POSTGRES_DB: jdbc:postgresql://database:5432/postgres
       POSTGRES_USER: gadgetuser
       POSTGRES_PASSWORD: peaksoft
-      POSTGRES_DB: postgres
-    command: ["java", "-jar", "app.jar", "--server.port=2024"]
-    depends_on:
-      - database
-
   database:
     image: postgres:15
-    container_name: database
     restart: always
+    container_name: database
     ports:
       - "5432:5432"
     environment:
@@ -25,6 +23,6 @@ services:
       POSTGRES_PASSWORD: peaksoft
     volumes:
       - db_data:/var/lib/postgresql/data
-
 volumes:
   db_data:
+
